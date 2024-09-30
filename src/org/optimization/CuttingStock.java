@@ -13,6 +13,83 @@ public class CuttingStock {
 	private List<Map<Integer,Integer>> mapList=new ArrayList<Map<Integer, Integer>>();
 	private List<Integer> store=new ArrayList<Integer>();
 	private int count=0;
+        
+        
+        
+        public void smartCutter(int[] tagli, int maxdim){
+        
+           //  int[] tagli = new int[]{20000,140000,140000,75000}; 
+    
+            ArrayList spezzoni = new ArrayList();
+
+            double p = 0;
+            for(int i = 0; i <tagli.length; i++){
+                System.out.println("Taglio["+ i +"] = " + tagli[i]);
+                p+= tagli[i];
+            }
+
+
+            // Prendo in input la somma da pagareLunghezza Taglio totale:
+            System.out.println("Lunghezza Taglio totale: "+ p);
+
+
+            // Prendo in input la somma emessa per il pagamento
+            System.out.println("Lunghezza barra = 600000");
+           // double s = 600000;
+            double sIniziale = maxdim;
+
+            System.out.println("Elenco spezzoni: ");
+            // Verifico che la somma emessa sia >= del prezzo del prodotto
+            // Calcolo il resto
+                double r = maxdim - p;
+                double re = 0 ;
+
+            // millimetri
+            int upperbound = 120000;
+            int lowerbound = 80000;
+            int step = 50; 
+
+            double scarto = 0;
+
+
+            if (maxdim >= p)
+            {
+
+
+                while(upperbound>=lowerbound){
+
+                    while (r >= upperbound)
+                    {
+                       // System.out.println(upperbound + " cm");
+                        spezzoni.add(upperbound);
+
+                        r = r - upperbound;
+                        re = re + upperbound;
+                    }
+
+                    upperbound = upperbound - step;
+
+                }
+
+                // Stampo a video il resto
+            //    System.out.println("Per un totale SPEZZONI di : "+ re + " cm");
+
+                scarto = (sIniziale-re-p);
+            //    System.out.println("Scarto cm: " + scarto);
+            }
+
+            System.out.println("Sequenza di taglio....: ");
+            System.out.println("1) Scarto mm: " + scarto);
+
+            for(int i = 0; i <tagli.length; i++){
+                System.out.println("2) Taglio ["+ i +"] = mm " + tagli[i]);
+            }
+
+            // Spezzoni
+            System.out.println("3) Spezzoni mm "  + spezzoni.toString());   
+  
+        }       
+        
 	
 	public boolean hasMoreCombinations()
 	{
